@@ -45,9 +45,9 @@ project:
             - -mthumb -fmessage-length=0 -fsigned-char --specs=nano.specs --specs=nosys.specs
             - -Wl,--gc-sections,-Map="$elf()$.map"
   linker:
-    - script: ./M5531.scatter
+    - script: ./M5531_FLH.scatter
       for-compiler: AC6
-    - script: ./M5531.ld
+    - script: ./M5531_FLH.ld
       for-compiler: GCC
   groups:
     - group: CMSIS
@@ -67,7 +67,7 @@ project:
         - file: ../main.c
         - file: ../spim_code.c
   executes:
-    - execute: GenLDROMImage
+    - execute: GenSPIMCodeImage
       run : arm-none-eabi-objcopy -O binary --only-section=.spim_code $input$ $output$
       input:
         - $elf(.Release+GNUC)$

@@ -215,12 +215,14 @@ int32_t main(void)
 #endif
 
         /* Enter power down when USB suspend */
+
         if (g_u8Suspend)
+            /* User can adjust bits [11:8] of the bmAttributes field in gu8BOSDescriptor to reduce power consumption.*/
             PowerDown();
 
         {
             /* Update mouse data per 1 ms */
-            int32_t volatile delay = 200000UL;
+            int32_t volatile delay = SystemCoreClock / 1000;
 
             for (; delay > 0UL; delay--)
             {

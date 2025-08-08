@@ -2,6 +2,7 @@
 
 To experience the powerful features of M5531 series in few minutes, please select the sample code to download and execute on the NuMaker board. Open the project files to build them with Keil® MDK, IAR, NuEclipse or VSCode, and then download and trace them on the NuMaker board to see how it works.
 
+In Extentions of Visual Studio Code, please install Nuvoton NuMicro Cortex-M Pack. It is a complete development toolkit for Nuvoton's NuMicro Cortex-M microcontrollers.
 
 ## .\Document\
 
@@ -78,6 +79,7 @@ To experience the powerful features of M5531 series in few minutes, please selec
 
 - SecureApplication<br>
 	Sample code for secure application.
+	VSCode projects require Python 3.12 at least for post-build.
 
 - Semihost<br>
 	Show how to print and get character through IDE console window.

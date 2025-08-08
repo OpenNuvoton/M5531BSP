@@ -4,6 +4,7 @@ project:
   setups:
     - output:
         type: bin
+      for-compiler: AC6
     - setup: Options for SPIMHYPERExeInHRAM
       processor:
         fpu: dp
@@ -39,9 +40,9 @@ project:
             - -mthumb -fmessage-length=0 -fsigned-char --specs=nano.specs --specs=nosys.specs
             - -Wl,--gc-sections,-Map="$elf()$.map"
   linker:
-    - script: ./M5531.scatter
+    - script: ./M5531_HRAM.scatter
       for-compiler: AC6
-    - script: ../../../../Library/Device/Nuvoton/M5531/Source/GCC/M5531.ld
+    - script: ./M5531_HRAM.ld
       for-compiler: GCC
   groups:
     - group: CMSIS
@@ -61,3 +62,18 @@ project:
         - file: ../main.c
         - file: ../hyperram_code.c
         - file: ../spim_code.c
+  executes:
+    - execute: GenSPIMCodeImage
+      run : arm-none-eabi-objcopy -O binary --only-section=.spim_code $input$ $output$
+      input:
+        - $elf(.Release+GNUC)$
+      output:
+        - $OutDir(.Release+GNUC)$/$Project$.bin/SPIM.bin
+      for-context: .Release+GNUC
+    - execute: GenAPROMImage
+      run : arm-none-eabi-objcopy -O binary --remove-section=.spim_code $input$ $output$
+      input:
+        - $elf(.Release+GNUC)$
+      output:
+        - $OutDir(.Release+GNUC)$/$Project$.bin/ER_ROM
+      for-context: .Release+GNUC

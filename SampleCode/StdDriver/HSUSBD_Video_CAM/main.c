@@ -417,6 +417,10 @@ int32_t main(void)
         {
             if (s_u32XferBufAddr) //Trigger ISO-IN DMA
             {
+#if (NVT_DCACHE_ON == 1)
+                // Invalidate D-Cache to ensure CPU reads the latest image data written by CCAP
+                SCB_InvalidateDCache_by_Addr((void *)s_u32XferBufAddr, s_u32XferSize);
+#endif
                 UVC_SendImage(s_u32XferBufAddr, s_u32XferSize, uvcStatus.StillImage);
                 s_u32XferBufAddr = 0;  // Set ISO-IN IDLE
             }
