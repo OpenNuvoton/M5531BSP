@@ -4,6 +4,9 @@ To experience the powerful features of M5531 series in few minutes, please selec
 
 In Extentions of Visual Studio Code, please install Nuvoton NuMicro Cortex-M Pack. It is a complete development toolkit for Nuvoton's NuMicro Cortex-M microcontrollers.
 
+Please note that M5531 Series CMSIS BSP enables CPU Level-1 I/D-Cache by default but does not provide Cache coherence.
+
+
 ## .\Document\
 
 - CMSIS.html<br>
@@ -20,7 +23,7 @@ In Extentions of Visual Studio Code, please install Nuvoton NuMicro Cortex-M Pac
 
 - CMSIS<br>
 	Cortex® Microcontroller Software Interface Standard (CMSIS) V6.1.0 definitions by Arm® Corp.<p>
-	M5531 CMSIS-Driver implementations and RTE_Device headers are in the "Driver\Source" sub-folder. Please add source code files and copy RTE_Device header files into your project. Projects can define PRJ_RTE_DEVICE_HEADER macro to include the private RTE_Device.h.
+	M5531 CMSIS-Drivers do not provide thread safety and Cache coherence. The source and RTE_Device header files are in the "Driver\Source" sub-folder. Please add source files and copy RTE_Device header files into your project. Projects can define PRJ_RTE_DEVICE_HEADER macro to include the private RTE_Device.h.
 
 - Commu<br>
 	Helper functions of communication protocols, e.g., XMODEM.
@@ -79,7 +82,7 @@ In Extentions of Visual Studio Code, please install Nuvoton NuMicro Cortex-M Pac
 	Sample code for power management.
 
 - SecureApplication<br>
-	Sample code for secure application.
+	Sample code for secure application.<p>
 	VSCode projects require Python 3.12 at least for post-build.
 
 - Semihost<br>
@@ -132,7 +135,7 @@ In Extentions of Visual Studio Code, please install Nuvoton NuMicro Cortex-M Pac
 ## .\Tool\
 
 - imgtool.exe<br>
-- imgtool.py<br>
+  imgtool.py<br>
 	Used to perform the operations that are necessary to manage keys and sign images.
 
 - OTAServerDemo_v2.2.1.apk<br>
