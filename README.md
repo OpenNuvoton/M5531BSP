@@ -1,8 +1,6 @@
 # M5531 Series CMSIS BSP
 
-To experience the powerful features of M5531 series in few minutes, please select the sample code to download and execute on the NuMaker board. Open the project files to build them with Keil® MDK, IAR, NuEclipse or VS Code, and then download and trace them on the NuMaker board to see how it works.
-
-In Extentions of Visual Studio Code, please install Nuvoton NuMicro Cortex-M Pack. It is a complete development toolkit for Nuvoton's NuMicro Cortex-M microcontrollers.
+To experience the powerful features of M5531 series in few minutes, please select the sample code to download and execute on the NuMaker-M5531 board. Open the project files to build them with Keil® MDK, IAR, NuEclipse or VS Code, and then download and trace them on the NuMaker board to see how it works.
 
 Please note that M5531 Series CMSIS BSP enables CPU Level-1 I/D-Cache by default but does not guarantee Cache coherence.
 
@@ -17,6 +15,9 @@ Please note that M5531 Series CMSIS BSP enables CPU Level-1 I/D-Cache by default
 
 - NuMicro M5531 Series CMSIS BSP Revision History.pdf<br>
 	This document shows the revision history of M5531 Series BSP.
+
+- VSCode Quick Start Guide
+	This documents guide to install, configure and use VS Code.
 
 
 ## .\Library\
@@ -66,14 +67,14 @@ Please note that M5531 Series CMSIS BSP enables CPU Level-1 I/D-Cache by default
 	
 - Hard\_Fault\_Sample<br>
 	Show hard fault information when hard fault happened.<p>
-	The hard fault handler show some information included program counter, which is the address where the processor is executing when the hard fault occur. The listing file (or map file) can show what function and instruction that is.<p>
+	The hard fault handler shows some information including program counter, which is the address where the processor is executed when the hard fault occurs. The listing file (or map file) can show what function and instruction that is.<p>
 	It also shows the Link Register (LR), which contains the return address of the last function call. It can show the status where CPU comes from to get to this point.
 
 - ISP<br>
 	Sample code for In-System-Programming.
 
-- NuMaker<br>
-	Sample code for NuMaker board.
+- NuMaker-M5531<br>
+	Sample code for NuMaker-M5531 board.
 
 - PowerDelivery<br>
 	Sample code for power delivery on UTCPD board.

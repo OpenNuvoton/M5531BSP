@@ -22,7 +22,7 @@ project:
           C:
             - -std=c11
           C-CPP:
-            - -fno-rtti -funsigned-char -fshort-enums -fshort-wchar -ffunction-sections -fdata-sections -w
+            - -fno-rtti -funsigned-char -fshort-enums -fshort-wchar -ffunction-sections -fdata-sections -Wall
             - -D__MICROLIB
           CPP:
             - -xc++
@@ -41,10 +41,11 @@ project:
           Link:
             - -mthumb -fmessage-length=0 -fsigned-char --specs=nano.specs --specs=nosys.specs
             - -Wl,--gc-sections,-Map="$elf()$.map"
+            - -Wl,--no-warn-rwx-segments
           Library:
             - m
   linker:
-    - script: ./M5531.scatter
+    - script: ./M5531.scf
       for-compiler: AC6
     - script: ./M5531.ld
       for-compiler: GCC
@@ -53,6 +54,7 @@ project:
       files:
         - file: ../../../../Library/Device/Nuvoton/M5531/Source/startup_M5531.c
         - file: ../../../../Library/Device/Nuvoton/M5531/Source/system_M5531.c
+
     - group: Library
       files:
         - file: ../../../../Library/StdDriver/src/retarget.c

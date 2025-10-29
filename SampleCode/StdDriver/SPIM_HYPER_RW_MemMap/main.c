@@ -17,13 +17,21 @@
 
 #define SPIM_PORT                   SPIM0
 
+/*
+    Define HYPERRAM_DIFF_CLK = 1 for differential clock mode (CK & CK#)
+    Define HYPERRAM_DIFF_CLK = 0 for single-ended clock mode (CK only)
+*/
+#ifndef HYPERRAM_DIFF_CLK
+    #define HYPERRAM_DIFF_CLK 0
+#endif
+
 //------------------------------------------------------------------------------
 void SYS_Init(void)
 {
     /*
-      Set I/O slew rate to FAST1 (100 MHz).
-      Use FAST1 if targeting 1.8V devices for better timing margin.
-      Adjust if signal issues or EMI are observed.
+        Set I/O slew rate to FAST1 (100 MHz).
+        Use FAST1 if targeting 1.8V devices for better timing margin.
+        Adjust if signal issues or EMI are observed.
     */
     uint32_t u32SlewRate = GPIO_SLEWCTL_FAST1;
 
@@ -70,7 +78,22 @@ void SYS_Init(void)
     SetDebugUartMFP();
 
     /* Init SPIM multi-function pins */
+    /*
+        HyperRAM CLK# usage depends on clock mode:
+        Differential: CK and CK# both used (enable CLKN pin).
+        Single-ended: CK# unused (do not set CLKN).
+        Refer to HyperRAM datasheet before enabling CLKN.
+    */
+#if HYPERRAM_DIFF_CLK
+    /* Differential mode: CK# required enable CLKN pin */
+    /* See note above and ensure CK# is connected or tied to VCCQ/VSSQ (not floating). */
     SET_SPIM0_CLKN_PH12();
+#else
+    /* Single-ended mode: CK# not used by device (CR1[6]=1 default).
+       If CK# not routed, tie to VCCQ or VSSQ to avoid floating on the PCB. */
+    /* No CLKN mux needed */
+#endif
+
     SET_SPIM0_CLK_PH13();
     SET_SPIM0_D2_PJ5();
     SET_SPIM0_D3_PJ6();

@@ -1192,7 +1192,6 @@ void CLK_DisableModuleClock(uint64_t u64ModuleIdx)
   * @brief      Set PLL frequency
   * @param[in]  u32PllClkSrc is PLL clock source. Including :
   *             - \ref CLK_APLLCTL_APLLSRC_HXT
-  *             - \ref CLK_APLLCTL_APLLSRC_HXT_DIV2
   *             - \ref CLK_APLLCTL_APLLSRC_HIRC
   *             - \ref CLK_APLLCTL_APLLSRC_HIRC48_DIV4
   * @param[in]  u32PllFreq is PLL frequency. The range of u32PllFreq is 36 MHz ~ 500 MHz.
@@ -1230,18 +1229,6 @@ uint32_t CLK_EnableAPLL(uint32_t u32PllClkSrc, uint32_t u32PllFreq, uint32_t u32
 
         /* Select PLL source clock from HXT */
         u32PllSrcClk = __HXT;
-    }
-    /* PLL source clock is from HXT_DIV2 */
-    else if (u32PllClkSrc == CLK_APLLCTL_APLLSRC_HXT_DIV2)
-    {
-        /* Enable HXT clock */
-        CLK->SRCCTL |= CLK_SRCCTL_HXTEN_Msk;
-
-        /* Wait for HXT clock ready */
-        CLK_WaitClockReady(CLK_STATUS_HXTSTB_Msk);
-
-        /* Select PLL source clock from HXT/2 */
-        u32PllSrcClk = __HXT / 2;
     }
     /* PLL source clock is from HIRC */
     else if (u32PllClkSrc == CLK_APLLCTL_APLLSRC_HIRC)
@@ -1602,10 +1589,6 @@ uint32_t CLK_GetAPLL0ClockFreq(void)
         {
             u32FIN = __HXT;             /* PLL0 source clock from HXT */
         }
-        else if ((u32PllReg1 & CLK_APLL0SEL_APLLSRC_Msk) == CLK_APLLCTL_APLLSRC_HXT_DIV2)
-        {
-            u32FIN = __HXT / 2;         /* PLL0 source clock from HXT/2 */
-        }
         else
         {
             u32FIN = __HIRC48M / 4;     /* PLL0 source clock from HIRC48M/4 */
@@ -1664,10 +1647,6 @@ uint32_t CLK_GetAPLL1ClockFreq(void)
         else if ((u32PllReg1 & CLK_APLL1SEL_APLLSRC_Msk) == CLK_APLLCTL_APLLSRC_HXT)
         {
             u32FIN = __HXT;         /* PLL1 source clock from HXT */
-        }
-        else if ((u32PllReg1 & CLK_APLL1SEL_APLLSRC_Msk) == CLK_APLLCTL_APLLSRC_HXT_DIV2)
-        {
-            u32FIN = __HXT / 2;         /* PLL1 source clock from HXT/2 */
         }
         else
         {
@@ -1867,7 +1846,6 @@ uint32_t CLK_GetModuleClockDivider(uint64_t u64ModuleIdx)
   * @brief      Set PLL frequency
   * @param[in]  u32PllClkSrc is PLL clock source. Including :
   *             - \ref CLK_APLLCTL_APLLSRC_HXT
-  *             - \ref CLK_APLLCTL_APLLSRC_HXT_DIV2
   *             - \ref CLK_APLLCTL_APLLSRC_HIRC
   *             - \ref CLK_APLLCTL_APLLSRC_HIRC48_DIV4
   *             u32PllClkSrc is ignored when u32SCLKSrc is not CLK_SCLKSEL_SCLKSEL_APLL0.

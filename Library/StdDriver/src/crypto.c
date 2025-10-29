@@ -30,11 +30,13 @@
 /** @cond HIDDEN_SYMBOLS */
 static uint32_t g_AES_CTL[4];
 static char  hex_char_tbl[] = "0123456789abcdef";
-static void dump_ecc_reg(char *str, uint32_t volatile regs[], int32_t count);
 static char get_Nth_nibble_char(uint32_t val32, uint32_t idx);
 static char ch2hex(char ch);
 static int  get_nibble_value(char c);
 void  dump_buff_hex(uint8_t *pucBuff, int nBytes);
+#if ENABLE_DEBUG
+    static void dump_ecc_reg(char *str, uint32_t volatile regs[], int32_t count);
+#endif
 /** @endcond HIDDEN_SYMBOLS */
 
 
@@ -834,10 +836,6 @@ static void dump_ecc_reg(char *str, uint32_t volatile regs[], int32_t count)
 
     printf("\n");
 }
-#else
-static void dump_ecc_reg(char *str, uint32_t volatile regs[], int32_t count)
-{
-}
 #endif
 
 static char  ch2hex(char ch)
@@ -1021,10 +1019,12 @@ int32_t ecc_init_curve(CRYPTO_T *crypto, E_ECC_CURVE ecc_curve)
         Hex2Reg(pCurve->Py, crypto->ECC_Y1);
 
         CRYPTO_DBGMSG("Key length = %d\n", pCurve->key_len);
+#if ENABLE_DEBUG
         dump_ecc_reg("CRYPTO_ECC_CURVE_A", crypto->ECC_A, 10);
         dump_ecc_reg("CRYPTO_ECC_CURVE_B", crypto->ECC_B, 10);
         dump_ecc_reg("CRYPTO_ECC_POINT_X1", crypto->ECC_X1, 10);
         dump_ecc_reg("CRYPTO_ECC_POINT_Y1", crypto->ECC_Y1, 10);
+#endif
 
         if (pCurve->GF == (int)CURVE_GF_2M)
         {
@@ -1040,8 +1040,10 @@ int32_t ecc_init_curve(CRYPTO_T *crypto, E_ECC_CURVE ecc_curve)
         }
     }
 
+#if ENABLE_DEBUG
     dump_ecc_reg("Init N:", crypto->ECC_N, 18);
-    //dump_ecc_reg("CRYPTO_ECC_CURVE_N", crypto->ECC_N, 10);
+    dump_ecc_reg("CRYPTO_ECC_CURVE_N", crypto->ECC_N, 10);
+#endif
     return ret;
 }
 
@@ -1162,9 +1164,10 @@ void ECC_Start(uint32_t ecc_ctl)
   */
 int ECC_IsPrivateKeyValid(CRYPTO_T *crypto, E_ECC_CURVE ecc_curve, char private_k[])
 {
-    uint32_t  i;
+    int32_t  i;
     int       ret = -1;
 
+    (void)(crypto);
     pCurve = get_curve(ecc_curve);
 
     if (pCurve == NULL)
@@ -1478,7 +1481,7 @@ int32_t  ECC_Mutiply_KS(CRYPTO_T *crypto, E_ECC_CURVE ecc_curve, int x1_ksnum, c
         }
         else
         {
-            Hex2Reg(x1, crypto->ECC_Y1);
+            Hex2Reg(y1, crypto->ECC_Y1);
         }
 
         crypto->ECC_KSXY = ecc_ksxy;
@@ -1697,11 +1700,11 @@ int32_t  ECC_GenerateSecretZ_KS(CRYPTO_T *crypto, E_ECC_CURVE ecc_curve, int k_k
     }
 
     printf("ECC_KSCTL = 0x%x\n", ecc_ksctl);
-
-    //    dump_ecc_reg("CRYPTO_ECC_POINT_X1", crypto->ECC_X1, 10);
-    //    dump_ecc_reg("CRYPTO_ECC_POINT_Y1", crypto->ECC_Y1, 10);
-    //    dump_ecc_reg("CRYPTO_ECC_CURVE_K", crypto->ECC_K, 10);
-
+#if ENABLE_DEBUG
+    dump_ecc_reg("CRYPTO_ECC_POINT_X1", crypto->ECC_X1, 10);
+    dump_ecc_reg("CRYPTO_ECC_POINT_Y1", crypto->ECC_Y1, 10);
+    dump_ecc_reg("CRYPTO_ECC_CURVE_K", crypto->ECC_K, 10);
+#endif
     g_ECC_done = g_ECCERR_done = 0UL;
     crypto->ECC_CTL |= ((uint32_t)pCurve->key_len << CRYPTO_ECC_CTL_CURVEM_Pos) |
                        ECCOP_POINT_MUL | CRYPTO_ECC_CTL_START_Msk;

@@ -454,6 +454,10 @@ static uint32_t CANn_GetClock(uint32_t port)
         {
             u32CanFdClock = __HIRC48M / 4;
         }
+		else
+		{
+			return ARM_DRIVER_ERROR;
+		}
     }
     else
     {
@@ -477,6 +481,10 @@ static uint32_t CANn_GetClock(uint32_t port)
         {
             u32CanFdClock = __HIRC48M / 4;
         }
+		else
+		{
+			return ARM_DRIVER_ERROR;
+		}
     }
 
     return u32CanFdClock;
@@ -723,6 +731,7 @@ static int32_t CANn_SetMode(uint32_t port, ARM_CAN_MODE mode)
 */
 static ARM_CAN_OBJ_CAPABILITIES CANn_ObjectGetCapabilities(uint32_t port, uint32_t obj_idx)
 {
+	(void)port;
     ARM_CAN_OBJ_CAPABILITIES obj_cap_null;
 
     if (obj_idx >= CAN_TOTAL_OBJ_NUM)
@@ -1022,6 +1031,7 @@ static int32_t CANn_MessageSend(uint32_t port, uint32_t obj_idx, ARM_CAN_MSG_INF
 */
 static int32_t CANn_MessageRead(uint32_t port, uint32_t obj_idx, ARM_CAN_MSG_INFO *msg_info, uint8_t *data, uint8_t size)
 {
+	(void)msg_info;
     if (port >= CAN_MAX_PORTS_NUM)
     {
         return ARM_DRIVER_ERROR_PARAMETER;
@@ -1284,8 +1294,6 @@ void CANFD10_IRQHandler(void)
 
 void CAN_SetConfig(CANFD_T *psCanfd, CANFD_FD_T *psCanfdStr)
 {
-    uint32_t u32CanFdClock = 0;
-
     if (psCanfdStr->sBtConfig.bBitRateSwitch)
     {
         /* enable FD and baud-rate switching */

@@ -15,6 +15,7 @@
 //------------------------------------------------------------------------------
 #define SPIM_PORT                   SPIM0
 #define SPIM_PORT_DIV               1
+//#define DMM_MODE_TRIM
 #define TRIM_PAT_SIZE               128
 
 //------------------------------------------------------------------------------
@@ -155,21 +156,21 @@ void SYS_Init(void)
   *
   * @details  Dump buffer in byte, hex, char format to console
   */
-void DumpHex(uint8_t *pu8Buff, int i32nSize)
+void DumpHex(uint8_t *pu8Buff, uint32_t u32nSize)
 {
     uint32_t u32Idx, u32i;
     uint32_t u32nPerLine = 16;
 
-    for (u32Idx = 0; u32Idx < i32nSize; u32Idx += u32nPerLine)
+    for (u32Idx = 0; u32Idx < u32nSize; u32Idx += u32nPerLine)
     {
         printf("0x%04X  ", u32Idx); /* Dump address in hex format */
 
-        for (u32i = u32Idx; u32i < u32Idx + u32nPerLine && u32i < i32nSize; u32i++)
+        for (u32i = u32Idx; u32i < u32Idx + u32nPerLine && u32i < u32nSize; u32i++)
             printf("%02x ", pu8Buff[u32i]); /* Dump byte in hex format */
 
         printf("  "); /* Print a space */
 
-        for (u32i = u32Idx; u32i < u32Idx + u32nPerLine && u32i < i32nSize; u32i++)
+        for (u32i = u32Idx; u32i < u32Idx + u32nPerLine && u32i < u32nSize; u32i++)
         {
             if (pu8Buff[u32i] >= 0x20 && pu8Buff[u32i] < 127)
                 printf("%c", pu8Buff[u32i]); /* Dump char if printable */
@@ -250,8 +251,8 @@ void SPIM_TrimRxClkDlyNum(SPIM_T *spim, SPIM_PHASE_T *psWbWrCMD, SPIM_PHASE_T *p
     uint32_t u32SrcAddr = 0;
     uint32_t u32Div = SPIM_GET_CLOCK_DIVIDER(spim); // Divider value
     /*
-    SPIM DMA requires memory buffers to be 8-byte aligned.
-    TRIM_PAT_SIZE is in bytes and must be divisible by 8.
+        SPIM DMA requires memory buffers to be 8-byte aligned.
+        TRIM_PAT_SIZE is in bytes and must be divisible by 8.
     */
     uint64_t au64TrimPattern[(TRIM_PAT_SIZE * 2) / 8] = {0};
     uint64_t au64VerifyBuf[(TRIM_PAT_SIZE / 8)] = {0};
@@ -362,7 +363,7 @@ void SPIM_TrimRxClkDlyNum(SPIM_T *spim, SPIM_PHASE_T *psWbWrCMD, SPIM_PHASE_T *p
 
     for (u32i = 0; u32i < SPIM_MAX_RX_DLY_NUM; u32i++)
     {
-        if (u8RdDelayRes[u32i] >= u32ReTrimMaxCnt)
+        if (u8RdDelayRes[u32i] == u32ReTrimMaxCnt)
         {
             u8RdDelayRes[u32j++] = u32i;
         }
@@ -556,12 +557,6 @@ int main()
     /* Set SPIM clock as HCLK divided by 1 */
     SPIM_SET_CLOCK_DIVIDER(SPIM_PORT, SPIM_PORT_DIV);
 
-    SPIM_DISABLE_CIPHER(SPIM_PORT);
-
-    /* Set Cipher Key and protection region */
-    OTFC_SetKeyFromKeyReg(OTFC0, gau32AESKey, OTFC_PR_0, TEST_BLOCK_ADDR, FLASH_BLOCK_SIZE);
-    OTFC_ENABLE_PR(OTFC0, OTFC_PR_0);
-
     if (SPIM_InitFlash(SPIM_PORT, SPIM_OP_ENABLE) != SPIM_OP_DISABLE)          /* Initialized SPI flash */
     {
         printf("SPIM flash initialize failed!\n");
@@ -570,6 +565,12 @@ int main()
 
     SPIM_ReadJedecId(SPIM_PORT, idBuf, sizeof(idBuf), SPIM_BITMODE_1);
     printf("SPIM get JEDEC ID=0x%02X, 0x%02X, 0x%02X\n", idBuf[0], idBuf[1], idBuf[2]);
+
+    SPIM_ENABLE_CIPHER(SPIM_PORT);
+
+    /* Set Cipher Key and protection region */
+    OTFC_SetKeyFromKeyReg(OTFC0, gau32AESKey, OTFC_PR_0, TEST_BLOCK_ADDR, FLASH_BLOCK_SIZE);
+    OTFC_ENABLE_PR(OTFC0, OTFC_PR_0);
 
     printf("\n[Fast Read] 3-bytes address mode, Fast Read command...\r\n");
 

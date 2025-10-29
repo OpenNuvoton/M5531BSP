@@ -47,10 +47,10 @@ extern SPIM_PHASE_T gsMt8BhRdDDRCMD;
 void SYS_Init(void)
 {
     /*
-        Set I/O slew rate to FAST1 (100 MHz).
-        Use FAST1 if targeting 1.8V devices for better timing margin.
-        Adjust if signal issues or EMI are observed.
-    */
+         Set I/O slew rate to FAST1 (100 MHz).
+         Use FAST1 if targeting 1.8V devices for better timing margin.
+         Adjust if signal issues or EMI are observed.
+     */
     uint32_t u32SlewRate = GPIO_SLEWCTL_FAST1;
 
     /* Enable Internal RC 12MHz clock */
@@ -203,7 +203,6 @@ void SPIM_TrimDLLDelayNum(SPIM_T *spim, SPIM_PHASE_T *pMTWrCMD, SPIM_PHASE_T *pM
     uint32_t u32k = 0;
     uint32_t u32ReTrimCnt = 0;
     uint32_t u32SrcAddr = OCFLH_TRIM_ADDR;
-    uint32_t u32Div = SPIM_GET_CLOCK_DIVIDER(spim); // Divider value
     /*
         SPIM DMA requires memory buffers to be 8-byte aligned.
         TRIM_PAT_SIZE is in bytes and must be divisible by 8.
@@ -375,7 +374,6 @@ void SPIM_TrimRxClkDlyNum(SPIM_T *spim, SPIM_PHASE_T *pMTWrCMD, SPIM_PHASE_T *pM
     uint32_t u32k = 0;
     uint32_t u32ReTrimCnt = 0;
     uint32_t u32SrcAddr = OCFLH_TRIM_ADDR;
-    uint32_t u32Div = SPIM_GET_CLOCK_DIVIDER(spim); // Divider value
     /*
         SPIM DMA requires memory buffers to be 8-byte aligned.
         TRIM_PAT_SIZE is in bytes and must be divisible by 8.

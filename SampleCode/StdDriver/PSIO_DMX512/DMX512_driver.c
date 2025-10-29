@@ -22,7 +22,7 @@ static volatile uint16_t *s_pu16DataResult = NULL;
 tPSIO_IRQHandler pfPSIO_IRQHandler = NULL;
 
 /* Decode DMX512 frame */
-E_DMX512_FRAME_TYPE  DMX512_FrameDecoder(S_PSIO_DMX512_CFG *psConfig, uint16_t *pu16Data)
+E_DMX512_FRAME_TYPE  DMX512_FrameDecoder(uint16_t *pu16Data)
 {
     /* Special pattern */
     switch (*pu16Data)
@@ -59,7 +59,7 @@ void DMX512_ISRHandler_Receive_with_Filter(void)
 
         s_u16DataTmp = (uint16_t) PSIO_GET_INPUT_DATA(PSIO, s_psRxConfig->u8RxPin);
 
-        switch (DMX512_FrameDecoder(s_psRxConfig, (uint16_t *)&s_u16DataTmp))
+        switch (DMX512_FrameDecoder((uint16_t *)&s_u16DataTmp))
         {
             case eDMX512_DATA:
 
