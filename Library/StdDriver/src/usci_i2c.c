@@ -13,13 +13,13 @@
   @{
 */
 
-/** @addtogroup UI2C_Driver USCI_I2C Driver
+/** @addtogroup USCI_I2C_Driver USCI_I2C Driver
   @{
 */
 
 int32_t g_UI2C_i32ErrCode = 0;       /*!< UI2C global error code */
 
-/** @addtogroup UI2C_EXPORTED_FUNCTIONS USCI_I2C Exported Functions
+/** @addtogroup USCI_I2C_EXPORTED_FUNCTIONS USCI_I2C Exported Functions
   @{
 */
 
@@ -1374,6 +1374,6 @@ uint32_t UI2C_ReadMultiBytesTwoRegs(UI2C_T *ui2c, uint8_t u8SlaveAddr, uint16_t 
     return u32rxLen;                                                        /* Return bytes length that have been received */
 }
 
-/** @} end of group UI2C_EXPORTED_FUNCTIONS */
-/** @} end of group UI2C_Driver */
+/** @} end of group USCI_I2C_EXPORTED_FUNCTIONS */
+/** @} end of group USCI_I2C_Driver */
 /** @} end of group Standard_Driver */

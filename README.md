@@ -11,7 +11,7 @@ Please note that M5531 Series CMSIS BSP enables CPU Level-1 I/D-Cache by default
 ## .\Document\
 
 - CMSIS.html<br>
-	Document of CMSIS version 6.1.0.
+	Document of CMSIS.
 
 - NuMicro M5531 Series CMSIS BSP Driver Reference Guide.chm<br>
 	This document describes the usage of drivers in M5531 Series BSP.
@@ -19,8 +19,8 @@ Please note that M5531 Series CMSIS BSP enables CPU Level-1 I/D-Cache by default
 - NuMicro M5531 Series CMSIS BSP Revision History.pdf<br>
 	This document shows the revision history of M5531 Series BSP.
 
-- VSCode Quick Start Guide
-	This documents guide to install, configure and use VS Code.
+- VS Code Quick Start Guide
+	This document guides to install, configure and use VS Code.
 
 
 ## .\Library\
@@ -117,7 +117,7 @@ Please note that M5531 Series CMSIS BSP enables CPU Level-1 I/D-Cache by default
 	A software implements JPEG baseline, extended-sequential, and progressive compression processes maintained and published by the Independent JPEG Group (IJG).
 
 - libmad<br>
-	A MPEG audio decoder library that currently supports MPEG-1 and the MPEG-2 extension to lower sampling frequencies, as well as the de facto MPEG 2.5 format. All three audio layers — Layer I, Layer II, and Layer III (i.e., MP3) are fully implemented.
+	A MPEG audio decoder library that currently supports MPEG-1 and the MPEG-2 extension to lower sampling frequencies, as well as the so-called MPEG 2.5 format. All three audio layers — Layer I, Layer II, and Layer III (i.e., MP3) are fully implemented.
 
 - lwIP<br>
 	A widely used open source TCP/IP stack designed for embedded systems.
@@ -139,7 +139,6 @@ Please note that M5531 Series CMSIS BSP enables CPU Level-1 I/D-Cache by default
 ## .\Tool\
 
 - imgtool.exe<br>
-  imgtool.py<br>
 	Used to perform the operations that are necessary to manage keys and sign images.
 
 - OTAServerDemo_v2.2.1.apk<br>

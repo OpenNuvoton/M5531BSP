@@ -19,11 +19,11 @@ extern "C"
   @{
 */
 
-/** @addtogroup UI2C_Driver USCI_I2C Driver
+/** @addtogroup USCI_I2C_Driver USCI_I2C Driver
   @{
 */
 
-/** @addtogroup UI2C_EXPORTED_CONSTANTS USCI_I2C Exported Constants
+/** @addtogroup USCI_I2C_EXPORTED_CONSTANTS USCI_I2C Exported Constants
   @{
 */
 
@@ -311,8 +311,8 @@ uint32_t UI2C_ReadMultiBytesOneReg(UI2C_T *ui2c, uint8_t u8SlaveAddr, uint8_t u8
 uint8_t UI2C_ReadByteTwoRegs(UI2C_T *ui2c, uint8_t u8SlaveAddr, uint16_t u16DataAddr);
 uint32_t UI2C_ReadMultiBytesTwoRegs(UI2C_T *ui2c, uint8_t u8SlaveAddr, uint16_t u16DataAddr, uint8_t *rdata, uint32_t u32rLen);
 
-/** @} end of group UI2C_EXPORTED_FUNCTIONS */
-/** @} end of group UI2C_Driver */
+/** @} end of group USCI_I2C_EXPORTED_FUNCTIONS */
+/** @} end of group USCI_I2C_Driver */
 /** @} end of group Standard_Driver */
 
 #ifdef __cplusplus

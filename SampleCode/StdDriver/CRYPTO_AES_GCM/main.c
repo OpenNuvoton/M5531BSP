@@ -704,7 +704,7 @@ void SYS_Init(void)
     /* Enable CRYPTO module clock */
     CLK_EnableModuleClock(CRYPTO0_MODULE);
 
-    /* Debug UART clock setting*/
+    /* Debug UART clock setting */
     SetDebugUartCLK();
 
     /*---------------------------------------------------------------------------------------------------------*/
@@ -1177,8 +1177,7 @@ int32_t AES_GCMEnc(uint8_t *key, uint32_t klen, uint8_t *iv, uint32_t ivlen, uin
 
 int32_t AES_GCMDec(uint8_t *key, uint32_t klen, uint8_t *iv, uint32_t ivlen, uint8_t *A, uint32_t alen, uint8_t *P, uint32_t plen, uint8_t *buf, uint32_t *size, uint32_t *plen_aligned)
 {
-    uint32_t i;
-    int32_t len, plen_cur;
+    uint32_t i, len, plen_cur;
     uint8_t *pin, *pout;
     uint32_t u32OptBasic;
     uint32_t u32OptKeySize;
@@ -1480,4 +1479,5 @@ int main(void)
     while (1) {}
 
 }
+
 /*** (C) COPYRIGHT 2023 Nuvoton Technology Corp. ***/

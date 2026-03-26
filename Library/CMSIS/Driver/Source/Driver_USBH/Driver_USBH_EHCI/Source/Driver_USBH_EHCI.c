@@ -41,8 +41,7 @@
 #include "Driver_USBH_EHCI_Regs.h"
 #include "Driver_USBH_EHCI_HW.h"
 
-#include "cmsis_os2.h"
-#include "cmsis_compiler.h"
+
 
 //M5531 series...
 #include "NuMicro.h"
@@ -401,7 +400,7 @@ static bool USBH_EHCI_StartStop(uint8_t ctrl, uint8_t type, bool start)
 
         if (tout <= 100U)
         {
-            (void)osDelay(10U);
+            (void)delay_ms(10U);
         }
     }
 
@@ -438,7 +437,7 @@ static bool USBH_EHCI_StartStop(uint8_t ctrl, uint8_t type, bool start)
 
         if (tout <= 100U)
         {
-            (void)osDelay(10U);
+            (void)delay_ms(10U);
         }
     }
 
@@ -467,7 +466,7 @@ static bool USBH_EHCI_DoHandshake(uint8_t ctrl)
         {
             if (tout == 0) return false;
 
-            (void)osDelay(10U);
+            (void)delay_ms(10U);
         }
     }
 
@@ -2184,7 +2183,7 @@ static int32_t USBH_HW_Uninitialize(uint8_t ctrl)
         if ((usbh_ehci_reg_ptr[ctrl]->USTSR & HSUSBH_USTSR_HCHalted_Msk) == HSUSBH_USTSR_HCHalted_Msk)
             break;
 
-        osDelay(1U);
+        delay_ms(1U);
         timeout -= 1;
 
         if (timeout == 0)
@@ -2243,7 +2242,7 @@ static int32_t USBH_HW_PowerControl(uint8_t ctrl, ARM_POWER_STATE state)
                         return ARM_DRIVER_ERROR;
                     }
 
-                    (void)osDelay(10U);
+                    (void)delay_ms(10U);
                 }
 
                 tout--;
@@ -2289,7 +2288,7 @@ static int32_t USBH_HW_PowerControl(uint8_t ctrl, ARM_POWER_STATE state)
                         return ARM_DRIVER_ERROR;
                     }
 
-                    (void)osDelay(10U);
+                    (void)delay_ms(10U);
                 }
 
                 tout--;
@@ -2315,7 +2314,7 @@ static int32_t USBH_HW_PowerControl(uint8_t ctrl, ARM_POWER_STATE state)
                         return ARM_DRIVER_ERROR;
                     }
 
-                    (void)osDelay(10U);
+                    (void)delay_ms(10U);
                 }
 
                 tout--;
@@ -2412,7 +2411,7 @@ static int32_t USBH_HW_PortReset(uint8_t ctrl, uint8_t port)
                 usbh_ehci_reg_ptr[ctrl]->UPSCR[port] &= ~HSUSBH_UPSCR_PRST_Msk;
             }
 
-            (void)osDelay(10U);
+            (void)delay_ms(10U);
         }
 
         tout--;
@@ -2489,7 +2488,7 @@ static int32_t USBH_HW_PortResume(uint8_t ctrl, uint8_t port)
     }
 
     usbh_ehci_reg_ptr[ctrl]->UPSCR[port] |= HSUSBH_UPSCR_FPR_Msk;  // Force Port Resume
-    (void)osDelay(20U); //wait 20ms
+    (void)delay_ms(20U); //wait 20ms
     usbh_ehci_reg_ptr[ctrl]->UPSCR[port] &= ~HSUSBH_UPSCR_FPR_Msk;  // Clear Force Port Resume
     return ARM_DRIVER_OK;
 }

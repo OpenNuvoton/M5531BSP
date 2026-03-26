@@ -12,7 +12,8 @@
 #include "NuMicro.h"
 #include "common.h"
 #include "mbedtls/aes.h"
-
+#include "mbedtls/gcm.h"
+#include "mbedtls/ccm.h"
 
 #define MBEDTLS_EXIT_SUCCESS    0
 #define MBEDTLS_EXIT_FAILURE    -1
@@ -83,6 +84,8 @@ void SysTick_Handler()
 }
 
 #define TEST_AES
+#define TEST_GCM
+#define TEST_CCM
 int32_t main(void)
 {
     int  i32Ret = MBEDTLS_EXIT_SUCCESS;

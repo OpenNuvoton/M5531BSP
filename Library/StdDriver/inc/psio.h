@@ -818,7 +818,7 @@ typedef struct
 * @details     This macro set specified pin output data.
 * \hideinitializer
 */
-#define PSIO_SET_OUTPUT_DATA(psio, u32Pin, u32Data) (psio->GNCT[u32Pin].OUTDAT = (u32Data))
+#define PSIO_SET_OUTPUT_DATA(psio, u32Pin, u32Data) (psio->GNCT[u32Pin].OUTDAT = (uint32_t)(u32Data))
 
 /**
 * @brief       Set specified pin check point and slot link
