@@ -7,6 +7,7 @@
  * @copyright (C) 2022 Nuvoton Technology Corp. All rights reserved.
 *****************************************************************************/
 
+#include <stdio.h>
 #include "NuMicro.h"    /* Device header */
 #include "nsclib.h"     /* Collaborative Secure Software Development Library header */
 

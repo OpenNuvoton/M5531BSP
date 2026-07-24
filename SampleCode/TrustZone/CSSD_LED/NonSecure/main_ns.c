@@ -7,6 +7,7 @@
  * @copyright (C) 2023 Nuvoton Technology Corp. All rights reserved.
  *****************************************************************************/
 #include <arm_cmse.h>
+#include <stdio.h>
 #include "NuMicro.h"        /* Device header */
 #include "cssd_nsclib.h"    /* Collaborative Secure Software Development Library header */
 

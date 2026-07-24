@@ -28,6 +28,7 @@
 
 /* Scheduler includes. */
 
+#include <stdio.h>
 #include <string.h>
 #include <time.h>
 #include "FreeRTOS.h"

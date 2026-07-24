@@ -102,8 +102,9 @@ SECTIONS
   .text :
   {
     KEEP(*(.vectors))
+    *startup_*.o(.text*)
 
-    *(EXCLUDE_FILE(./User/spim_code.o) .text*)
+    *(EXCLUDE_FILE(*spim_code.o) .text*)
 
     KEEP(*(.init))
     KEEP(*(.fini))
@@ -122,9 +123,31 @@ SECTIONS
     *(SORT(.dtors.*))
     *(.dtors)
 
-    *(EXCLUDE_FILE(./User/spim_code.o) .rodata*)
+  *(EXCLUDE_FILE(*spim_code.o) .rodata*)
 
     KEEP(*(.eh_frame*))
+  } > FLASH
+
+  .rodata : {
+    . = ALIGN(8);
+    *(EXCLUDE_FILE(*spim_code.o) .rodata*)
+    . = ALIGN(8);
+  } >FLASH
+
+  .rel.dyn : {
+    . = ALIGN(8);
+    __rel_dyn_start = .;
+    *(.rel*)
+    __rel_dyn_end = .;
+    . = ALIGN(8);
+   } > FLASH
+
+   .dynsym : {
+     . = ALIGN(8);
+     __dynsym_start = .;
+     *(.dynsym)
+     __dynsym_end = .;
+     . = ALIGN(8);
   } > FLASH
 
   .ARM.extab :
@@ -266,17 +289,7 @@ SECTIONS
 
   __edtcm_init_data = __esram_data + (__dtcm_init_end__ - __dtcm_init_start__);
 
-  __etext = .;
-
-  . = 0x80000000;
-  __espi_start = .;
-
-  .spim_code : AT (__espi_start)
-  {
-    ./User/spim_code.o (.text*)
-    ./User/spim_code.o (.rodata*)
-  } > SPIM0
-    .lpsram (NOLOAD) :
+  .lpsram (NOLOAD) :
   {
     . = ALIGN(4);
     __lpsram_zi_start__ = .;
@@ -284,6 +297,13 @@ SECTIONS
     . = ALIGN(4);
     __lpsram_zi_end__ = .;
   } > LPSRAM AT > LPSRAM
+
+  . = ORIGIN(SPIM0);
+  .spim_code :
+  {
+    *spim_code.o (.text*)
+    *spim_code.o (.rodata*)
+  } > SPIM0
 
   .heap (NOLOAD) :
   {

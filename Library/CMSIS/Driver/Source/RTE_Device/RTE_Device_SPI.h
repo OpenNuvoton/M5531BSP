@@ -1,7 +1,7 @@
 /**************************************************************************//**
  * @file     RTE_Device_SPI.h
  * @version  V1.00
- * @brief    RTE Device Configuration for Nuvoton M5531 SPI
+ * @brief    RTE Device Configuration for Nuvoton M55M1 SPI
  *
  * @copyright SPDX-License-Identifier: Apache-2.0
  * @copyright Copyright (C) 2024 Nuvoton Technology Corp. All rights reserved.
@@ -53,7 +53,7 @@
 //     <o2> Channel(0~15) <0-15>
 //     <i>  Selects PDMA Channel
 //   </e>
-#define RTE_SPI0_RX_PDMA                    1
+#define RTE_SPI0_RX_PDMA                    0
 #define RTE_SPI0_RX_PDMA_PORT               0
 #define RTE_SPI0_RX_PDMA_CHANNEL            0
 
@@ -63,7 +63,7 @@
 //     <o2> Channel(0~15) <0-15>
 //     <i>  Selects PDMA Channel
 //   </e>
-#define RTE_SPI0_TX_PDMA                    1
+#define RTE_SPI0_TX_PDMA                    0
 #define RTE_SPI0_TX_PDMA_PORT               0
 #define RTE_SPI0_TX_PDMA_CHANNEL            1
 
@@ -212,7 +212,7 @@
 //     <o2> Channel(0~15) <0-15>
 //     <i>  Selects PDMA Channel
 //   </e>
-#define RTE_QSPI0_RX_PDMA                   0
+#define RTE_QSPI0_RX_PDMA                   1
 #define RTE_QSPI0_RX_PDMA_PORT              0
 #define RTE_QSPI0_RX_PDMA_CHANNEL           0
 
@@ -222,7 +222,7 @@
 //     <o2> Channel(0~15) <0-15>
 //     <i>  Selects PDMA Channel
 //   </e>
-#define RTE_QSPI0_TX_PDMA                   0
+#define RTE_QSPI0_TX_PDMA                   1
 #define RTE_QSPI0_TX_PDMA_PORT              0
 #define RTE_QSPI0_TX_PDMA_CHANNEL           1
 
@@ -295,7 +295,7 @@
 //     <o2> Channel(0~4) <0-4>
 //     <i>  Selects LPPDMA Channel
 //   </e>
-#define RTE_LPSPI0_RX_PDMA                  0
+#define RTE_LPSPI0_RX_PDMA                  1
 #define RTE_LPSPI0_RX_PDMA_PORT             0
 #define RTE_LPSPI0_RX_PDMA_CHANNEL          0
 
@@ -305,7 +305,7 @@
 //     <o2> Channel(0~4) <0-4>
 //     <i>  Selects LPPDMA Channel
 //   </e>
-#define RTE_LPSPI0_TX_PDMA                  0
+#define RTE_LPSPI0_TX_PDMA                  1
 #define RTE_LPSPI0_TX_PDMA_PORT             0
 #define RTE_LPSPI0_TX_PDMA_CHANNEL          1
 

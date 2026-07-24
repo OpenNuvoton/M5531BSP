@@ -6,6 +6,7 @@
  * @copyright (C) 2023 Nuvoton Technology Corp. All rights reserved.
  ******************************************************************************/
 /* Standard includes. */
+#include <stdio.h>
 #include "string.h"
 
 /* FreeRTOS includes. */

@@ -10,6 +10,9 @@ Please note that M5531 Series CMSIS BSP enables CPU Level-1 I/D-Cache by default
 
 ## .\Document\
 
+- SBOM<br>
+	Scopes and component evidence of Product SBOM and Test Sample SBOM.
+
 - CMSIS.html<br>
 	Document of CMSIS.
 
@@ -19,14 +22,14 @@ Please note that M5531 Series CMSIS BSP enables CPU Level-1 I/D-Cache by default
 - NuMicro M5531 Series CMSIS BSP Revision History.pdf<br>
 	This document shows the revision history of M5531 Series BSP.
 
-- VS Code Quick Start Guide
+- VS Code Quick Start Guide.pdf<br>
 	This document guides to install, configure and use VS Code.
 
 
 ## .\Library\
 
 - CMSIS<br>
-	Cortex® Microcontroller Software Interface Standard (CMSIS) V6.1.0 definitions by Arm® Corp.<p>
+	Cortex® Microcontroller Software Interface Standard (CMSIS) definitions and CMSIS-Compiler software components by Arm® Corp.<p>
 	M5531 CMSIS-Drivers do not guarantee thread safety and Cache coherence. The source and RTE_Device header files are in the "Driver\Source" sub-folder. Please add source files and copy RTE_Device header files into your project. Projects can define PRJ_RTE_DEVICE_HEADER macro to include the private RTE_Device.h.
 
 - Commu<br>
